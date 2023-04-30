@@ -1,12 +1,16 @@
 syntax on                        "set syntax highlight on
 set nu                           "set line numbers
+set encoding=UTF-8
+set guifont=Fira\ Code:h12
 
 "Highlighting
 set incsearch                    "Incremental search. Highlight as you type
 set hlsearch                     "Highlight search results once typed
+nohl
 
 "Backup
 set nobackup
+set noswapfile 
 
 set laststatus=2
 set statusline=%f
@@ -18,7 +22,9 @@ set statusline+=[%4L]
 
 "Indentation
 filetype indent on             "Turns on autoindent based on file type.
+syntax enable
 filetype plugin on
+
 set autoindent                 "Auto indentation
 set expandtab                  "Convert tabs to spaces
 set tabstop=2                  "Sidth of a tab
@@ -33,8 +39,8 @@ set ruler
 "wrap
 set wrap
 
-" Color
-colo slate
+"set color format 256
+set t_Co=256
 
 let mapleader=","
 
@@ -42,19 +48,14 @@ let mapleader=","
 noremap <leader><space> :set relativenumber!cr>
 noremap <leader>ev :vsplit $MYVIMRC<cr>
 inoremap <tab> <C-p>
-inoremap " ""<Left>
-inoremap [ []<Left>
-inoremap { {}<Left>
-inoremap ( ()<Left>
 
 "Switching buffer
 nnoremap <leader>nb :bnext<cr>
 nnoremap <leader>np :bprev<cr>
 
 "Custom mapping 
-inoremap <c-d> <esc>dd$a
-inoremap <c-a> <esc>ggVG
-inoremap <leader>j <esc>
+inoremap <C-a> <esc>ggVG
+inoremap jk <esc>
 inoremap .f <esc>Wa
 inoremap .b <esc>Ba
 inoremap .B <esc>0i
@@ -63,6 +64,7 @@ inoremap .F <esc>$a
 "writting a file
 nnoremap <leader>w :w<cr>
 inoremap <C-v> :<C-r>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
 "auto indent
 autocmd BufWritePre * :normal gg=G``
@@ -70,30 +72,38 @@ autocmd BufWritePre * :normal gg=G``
 "corrections mappings for .js files
 inoremap <C-f> <esc>^ifunction <esc>$a() {<cr>}<esc>O 
 inoremap <leader>i <esc>^iif (<esc>$a) {<cr>}<esc>O
-inoremap <leader>e <esc>^iif (<esc>$a) {<cr>} else {<cr>  <cr>}<Up><Up><esc>O
 inoremap <leader>w <esc>^iwhile (<esc>$a) {<cr>}<esc>O
-
 inoremap <leader>cd <esc>yypa
-
-inoremap <leader>f <esc>^ifor (<esc>$a) {<cr>}<esc>)O
-
-inoremap <leader>s <esc>^iswitch (<esc>$a) {<cr>case 1 :<cr>case 2 :<cr>case 3 :<cr>default :<cr>}<esc>4kf:a
-
-autocmd Filetype javascript nnoremap <leader>c I// 
-
 vnoremap <c-y> "*y
-
-inoremap jk <esc>
-
 inoremap <c-s> <esc>:w<cr>
-
-nnoremap <leader>q :q!
-
+nnoremap <leader>q :q!<cr>
 nnoremap <c-u> bgUw
 
-"finding files:
-set path+=**
+set path+=**                      "finding files:
 
-"display all matching files when tab complete
-set wildmenu 
+set wildmenu                      "display all matching files when tab complete
+set showmode                      "Show current mode down the bottom
 
+"Mappings for nerd tree
+nnoremap <leader>n :NERDTreeToggle<cr>
+let NERDTreeMinimalUI=1           "Remove nerd tree help icon
+
+"Themes configuration
+set background=dark
+colorscheme hybrid
+
+"Airline modification
+let g:airline#extensions#tabline#enabled = 1
+let g:javascript_plugin_ngdoc = 1
+
+"Nerd Tree config
+if exists("g:loaded_webdeviocons")
+  call webdevicons#refresh()
+endif
+
+let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
+let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
+let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
+let g:webdevicons_conceal_nerdtree_brackets = 1
