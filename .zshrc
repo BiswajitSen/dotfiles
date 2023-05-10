@@ -116,5 +116,5 @@ source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-PATH+=$PATH:/Users/biswajitsen/MY_SCRIPTS
+PATH+=:/Users/biswajitsen/bin
+export BAT_THEME='Monokai Extended Origin'
